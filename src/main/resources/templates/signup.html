@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+<head>
+  <meta charset="utf-8">
+  <title>Всплывающее окно на css,javascript</title>
+  <script type="text/javascript" src="/webjars/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"
+  />
+  <script type="text/javascript" src="/webjars/bootstrap-datepicker/4.3.1/js/bootstrap.min.js"></script>
+  <meta charset="ISO-8859-1">
+  <style>
+    .navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 30px 160px 65px 464px;
+      gap: 10px;
+
+      position: absolute;
+      width: 1472px;
+      height: 79px;
+      left: 1px;
+      top: 0px;
+      background: #34607F;
+    }
+    .bg-dark{
+      background-color:#34607F!important
+    }
+    .bg-primary{
+      background-color:#34607F!important
+    }
+    .nav-link , .navbar-brand {
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+    .navbar-toggler{
+      background:#fff !important;
+    }
+    .nav-item1 {
+      width: 130px;
+    }
+    .nav-item2 {
+      width: 130px;
+    }
+    .nav-item3 {
+      width: 130px;
+    }
+    .nav-item4 {
+      width: 330px;
+    }
+    nav-item6 {
+      width: 190px;
+    }
+
+    .imgsize {
+      position: absolute;
+      width: 657px;
+      height: 669px;
+      left: 691px;
+      top: 128px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 16.58%, rgba(255, 255, 255, 0) 72.38%);
+    url(https://s27870.pcdn.co/assets/lance-anderson-QdAAasrZhdk-unsplash.jpg.optimal.jpg);
+
+    }
+
+    /*окно входа*/
+    #window{
+      width: 350px;
+      height: 490px;
+      margin:98px auto;
+      background: #fff;
+      border: 6px solid #34607F;
+      border-radius: 40px;
+      box-shadow: 0px 100px 200px rgba(0, 0, 0, 0.4);
+      z-index: 150;
+      display: block;
+      position: fixed; left: 0; right: 0; top: 0; bottom: 0;
+
+    }
+    .form {
+      width: 275px;
+      margin: -15px auto 20px auto;
+      text-align: center;
+    }.input{width: 260px;
+       padding: 5px;
+       margin-bottom: 7px; }
+    .radio{margin-bottom: 10px;}
+    .close{margin: 10px 0 0 320px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      padding: 2px;
+      background: #34607F;}
+    .close:hover{background: #fff;}
+    #gray{
+      opacity: 0.8; padding: 15px; background-color: rgba(1,1,1,0.75);
+      position: fixed; left: 0; right: 0; top: 0; bottom: 0;
+      display: none;
+      z-index: 100; overflow: auto
+    }
+    .btn {
+      background-color: #34607F;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item1">
+          <a class="nav-link active" aria-current="page" href="@{#}">Главная</a>
+        </li>
+        <li class="nav-item2">
+          <a class="nav-link active" href="#">Стройка</a>
+        </li>
+        <li class="nav-item3">
+          <a class="nav-link active" href="#">Ремонт</a>
+        </li>
+        <li class="nav-item4">
+          <a class="nav-link active" href="#">Контакты</a>
+        </li>
+        <li class="nav-item6">
+          <a class="nav-link active" th:href="@{/login}">Войти</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div>
+  <img class="imgsize" src="https://avatars.mds.yandex.net/get-mpic/4950407/img_id4470978278460656879.jpeg/orig" >
+</div>
+
+<!--       Задний прозрачный фон-->
+<div onclick="show('none')" id="gray"></div>
+<div id="window">
+  <!--Картинка крестика-->
+  <img class="close" src="close.png" alt="" onclick="show('none')">
+  <div class="form">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center">Регистрация</h3>
+      </div>
+      <div th:if="${param.success}">
+        <div class="alert alert-info">
+          Вы успешно зарегистрированы!
+        </div>
+      </div>
+      <form method="post" role="form"  th:action="@{/signup}"
+            th:object="${user}">
+        <input type="text" placeholder="First Name" name="firstName" class="input" th:field="*{firstName}">
+        <p th:errors = "*{firstName}" class="text-danger"
+           th:if="${#fields.hasErrors('firstName')}"></p>
+        <input type="text" placeholder="Last Name" name="lastName" class="input" th:field="*{lastName}">
+        <p th:errors = "*{lastName}" class="text-danger"
+           th:if="${#fields.hasErrors('lastName')}"></p>
+        <input type="email" placeholder="Email" name="email" class="input" th:field="*{email}">
+        <p th:errors = "*{email}" class="text-danger"
+           th:if="${#fields.hasErrors('email')}"></p>
+        <input type="password" placeholder="Password" name="password" class="input" th:field="*{password}">
+        <p th:errors = "*{password}" class="text-danger"
+           th:if="${#fields.hasErrors('password')}"></p>
+        <input type='tel' placeholder="Мобильный телефон" name="tel" class="input" th:field="*{phoneNumber}">
+        <p th:errors = "*{phoneNumber}" class="text-danger"
+           th:if="${#fields.hasErrors('phoneNumber')}"></p>
+        <div class="form-group">
+          <button class="btn" type="submit">Зарегистрироваться</button>
+          <span>Вы зарегистрированы? <a class="btn" th:href="@{/login}">Войти</a></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  //Функция показа
+  function show(state)
+  {
+    document.getElementById('window').style.display = state;
+    document.getElementById('gray').style.display = state;
+  }
+</script>
+</body>
+
+</html>

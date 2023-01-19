@@ -66,5 +66,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/ignore1", "/ignore2");
     }
-
 }
