@@ -1,11 +1,10 @@
 package com.calculator.calculatorforhome.domain.buildmodel;
 
-import com.example.testbuild101122.domain.entity.User;
+import com.calculator.calculatorforhome.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.List;
 

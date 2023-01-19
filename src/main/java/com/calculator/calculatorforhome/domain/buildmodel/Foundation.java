@@ -1,14 +1,13 @@
 package com.calculator.calculatorforhome.domain.buildmodel;
 
-import com.example.testbuild101122.domain.entity.User;
-import com.example.testbuild101122.domain.enums.FoundationEnum;
-import com.example.testbuild101122.domain.enums.MaterialEnum;
-import com.example.testbuild101122.domain.enums.Size;
+import com.calculator.calculatorforhome.domain.entity.User;
+import com.calculator.calculatorforhome.domain.enums.FoundationEnum;
+import com.calculator.calculatorforhome.domain.enums.MaterialEnum;
+import com.calculator.calculatorforhome.domain.enums.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.List;
 
