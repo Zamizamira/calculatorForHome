@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration and Login System</title>
+  <script type="text/javascript" src="/webjars/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"
+  />
+  <script type="text/javascript" src="/webjars/bootstrap-datepicker/4.3.1/js/bootstrap.min.js"></script>
+  <meta charset="ISO-8859-1">
+  <style>
+    .navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 30px 160px 65px 464px;
+      gap: 10px;
+
+      position: absolute;
+      width: 1472px;
+      height: 79px;
+      left: 1px;
+      top: 0px;
+      background: #34607F;
+    }
+    .bg-dark{
+      background-color:#34607F!important
+    }
+    .bg-primary{
+      background-color:#34607F!important
+    }
+    .nav-link , .navbar-brand {
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+    .navbar-toggler{
+      background:#fff !important;
+    }
+    .nav-item1 {
+      width: 130px;
+    }
+    .nav-item2 {
+      width: 130px;
+    }
+    .nav-item3 {
+      width: 130px;
+    }
+    .nav-item4 {
+      width: 330px;
+    }
+    nav-item5 {
+      width: 90px;
+    }
+
+    /*НИЖНИЙ ЭКРАН*/
+    .imgsize {
+      position: absolute;
+      width: 657px;
+      height: 669px;
+      left: 691px;
+      top: 128px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 16.58%, rgba(255, 255, 255, 0) 72.38%);
+    url(https://s27870.pcdn.co/assets/lance-anderson-QdAAasrZhdk-unsplash.jpg.optimal.jpg);
+
+    }
+
+    /*окно входа*/
+    #window{
+      width: 350px;
+      height: 400px;
+      margin:99px auto;
+      background: #fff;
+      border: 6px solid #34607F;
+      border-radius: 40px;
+      box-shadow: 0px 100px 200px rgba(0, 0, 0, 0.4);
+      z-index: 150;
+      display: block;
+      position: fixed; left: 0; right: 0; top: 0; bottom: 0;
+
+    }
+    .form {
+      width: 300px;
+      height: 200px;
+      margin: -0px auto 20px auto;
+      text-align: -moz-left;
+    }
+    .input{
+      width: 300px;
+      padding: 10px;
+      margin-bottom: 10px; }
+    .close{margin: 10px 0 0 320px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      padding: 2px;
+      background: #34607F;}
+    .close:hover{background: #fff;}
+    #gray{ opacity: 0.8; padding: 15px; background-color: rgba(1,1,1,0.75);
+      position: fixed; left: 0; right: 0; top: 0; bottom: 0;
+      display: none;
+      z-index: 100; overflow: auto
+    }
+    .btn {
+      background-color: #34607F;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" ></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item1">
+          <a class="nav-link active" aria-current="page" th:href="@{/}">Главная</a>
+        </li>
+        <li class="nav-item2">
+          <a class="nav-link active" href="#">Стройка</a>
+        </li>
+        <li class="nav-item3">
+          <a class="nav-link active" href="#">Ремонт</a>
+        </li>
+        <li class="nav-item4">
+          <a class="nav-link active" href="#">Контакты</a>
+        </li>
+        <li class="nav-item5">
+          <a class="nav-link active" th:href="@{/signup}">Регистрация</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<div>
+  <img class="imgsize" src="https://avatars.mds.yandex.net/get-mpic/4950407/img_id4470978278460656879.jpeg/orig" >
+</div>
+
+<div onclick="show('none')" id="gray"></div>
+<div id="window">
+  <!--Картинка крестика-->
+  <img class="close" src="close.png" alt="" onclick="show('none')">
+  <div class="form">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center">Войти</h3>
+      </div>
+      <div th:if="${param.error}">
+        <div class="alert alert-danger">Неправильная почта или пароль</div>
+      </div>
+      <div th:if="${param.logout}">
+        <div class="alert alert-success"> Вы вышли из личного кабинета</div>
+      </div>
+      <form method="post" role="form"  th:action="@{/login}">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" />
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+<!--        <div class="form-group mb-3">-->
+<!--          <span><a class="btn" type="submit" th:href="@{/dashboard}">Войти</a></span>-->
+<!--        </div>-->
+<!--        <button class="btn btn-lg btn-primary btn-block" type="submit" th:href="@{/dashboard}">Sign in</button>-->
+        <div class="form-group mb-4">
+          <span> Не зарегистрированы?
+                                <a class="btn" th:href="@{/signup}">Зарегистрироваться</a>
+                            </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  //Функция показа
+  function show(state)
+  {
+    document.getElementById('window').style.display = state;
+    document.getElementById('gray').style.display = state;
+  }
+</script>
+</body>
+</html>

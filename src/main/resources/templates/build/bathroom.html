@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{default}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Профиль пользователя</title>
+    <script type="text/javascript" src="/webjars/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"
+    />
+    <script type="text/javascript" src="/webjars/bootstrap-datepicker/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="ISO-8859-1">
+    <style>
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 30px 130px 30px 464px;
+            gap: 10px;
+
+            position: absolute;
+            width: 1487px;
+            height: 79px;
+            left: 1px;
+            top: 0px;
+            background: #34607F;
+        }
+        .bg-dark{
+            background-color:#34607F!important
+        }
+        .bg-primary{
+            background-color:#34607F!important
+        }
+        .nav-link , .navbar-brand {
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+        .navbar-toggler{
+            background:#fff !important;
+        }
+        .nav-item1 {
+            width: 130px;
+        }
+        .nav-item2 {
+            width: 130px;
+        }
+        .nav-item3 {
+            width: 130px;
+        }
+        .nav-item4 {
+            width: 330px;
+        }
+
+        /*БОКОВАЯ ПАНЕЛЛЬ*/
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            width: 400px;
+            height: 1024px;
+            left: 0px;
+            top: 0px;
+            position: fixed;
+            z-index: 1;
+            background: #FFFFFF;
+            border: 2px solid #000000;
+        }
+        .text1_about_build {
+            position: absolute;
+            width: 140px;
+            height: 40px;
+            left: 120px;
+            top: 190px;
+            background: #34607F
+        }
+        .text1_about_build .nav-link{
+            font-family: 'Montserrat',serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 105.4%;
+            /* identical to box height, or 27px */
+            margin: 1px auto 50px auto;
+            padding: 8px 15px 12px 30px;
+            letter-spacing: 0.005em;
+            color: #FFFFFF;
+        }
+        .text2_about_build {
+            position: absolute;
+            width: 140px;
+            height: 40px;
+            left: 120px;
+            top: 278px;
+            background: #34607F
+        }
+        .text2_about_build .nav-link{
+            font-family: 'Montserrat',serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 105.4%;
+            /* identical to box height, or 27px */
+            margin: 1px auto 50px auto;
+            padding: 8px 15px 19px 27px;
+            letter-spacing: 0.005em;
+            color: #FFFFFF;
+        }
+        .text3_about_build {
+            position: absolute;
+            width: 140px;
+            height: 40px;
+            left: 120px;
+            top: 558px;
+            background: #34607F
+        }
+        .text3_about_build .nav-link{
+            font-family: 'Montserrat',serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 105.4%;
+            /* identical to box height, or 27px */
+            margin: 1px auto 50px auto;
+            padding: 8px 15px 12px 40px;
+            letter-spacing: 0.005em;
+            color: #FFFFFF;
+        }
+
+        /*НИЖНЯЯ ПАНЕЛЬ*/
+        body {margin:0;}
+        .navbarlow {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 51px 78px;
+            gap: 10px;
+
+            position: absolute;
+            width: 1487px;
+            height: 150px;
+            left: 2px;
+            top: 603px;
+
+            background: #34607F;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .navbar a:hover {
+            background: #f1f1f1;
+            color: black;
+        }
+
+        /*МОЙ ПРОФИЛЬ*/
+        .profile {
+            box-sizing: border-box;
+
+            position: absolute;
+            width: 688px;
+            height: 73px;
+            left: 501px;
+            top: 131px;
+
+            background: #FFFFFF;
+            /*border: 1px solid #000000;*/
+            /*border-radius: 70px;*/
+        }
+        .profile-main {
+            width: 688px;
+            height: 73px;
+            left: 501px;
+            top: 101px;
+        }
+        /*.form1 {*/
+        /*    width: 688px;*/
+        /*    height: 73px;*/
+        /*    left: 501px;*/
+        /*    top: 161px;*/
+        /*}*/
+        /*.form2 {*/
+        /*    width: 688px;*/
+        /*    height: 73px;*/
+        /*    left: 501px;*/
+        /*    top: 201px;*/
+        /*}*/
+        /*.form3 {*/
+        /*    width: 688px;*/
+        /*    height: 73px;*/
+        /*    left: 501px;*/
+        /*    top: 241px;*/
+        /*}*/
+        /*.form4 {*/
+        /*    width: 688px;*/
+        /*    height: 73px;*/
+        /*    left: 501px;*/
+        /*    top: 281px;*/
+        /*}*/
+        /*МОИ РАСЧЕТЫ*/
+        .text_bathroom1 {
+            position: absolute;
+            width: 263px;
+            height: 29px;
+            left: 529px;
+            top: 109px;
+
+        }
+        .text_bathroom1 span {
+            font-family: 'Montserrat',serif;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 30px;
+            line-height: 67.4%;
+            /* or 56px */
+
+            letter-spacing: 0.005em;
+
+            color: black;
+        }
+        /*НАЗАД*/
+        .text_bathroom2 {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            width: 110px;
+            height: 40px;
+            left: 1249px;
+            top: 490px;
+            margin: 5px auto 50px auto;
+            padding: 1px 2px 18px 15px;
+            letter-spacing: 0.005em;
+            border: 1px solid #000000;
+            border-radius: 3px;
+            background-color: #34607F;
+        }
+        .text_bathroom2 .nav-link{
+            font-family: 'Montserrat',serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 123.4%;
+            /* or 27px */
+
+            letter-spacing: 0.005em;
+
+            color: black;
+        }
+    </style>
+
+</head>
+<body>
+<!--ВЕРХНЯЯ ПАНЕЛЬ-->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item1">
+                    <a class="nav-link active" aria-current="page" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_USER')"th:href="@{#}">Главная</a>
+                </li>
+                <li class="nav-item2">
+                    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="#">Стройка</a>
+                </li>
+                <li class="nav-item3">
+                    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="#">Ремонт</a>
+                </li>
+                <li class="nav-item4">
+                    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="#">Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--<div class="authenticated" sec:autorize="isAuthenticated()">-->
+<!--  <h3>Welcome</h3> <b> <span sec:authentication="name">Username</span></b>-->
+<!--  <i><span sec:authentication="principal.authorities"><h3>Roles</h3></span></i>-->
+<!--</div>-->
+<!--БОКОВАЯ ПАНЕЛЬ-->
+
+
+<div class="sidenav">
+    <div layout:fragment="content">
+        <h6 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h6>
+    </div>
+    <div class="text1_about_build">
+        <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="#">Профиль</a>
+    </div>
+    <div class="text2_about_build">
+        <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation">Расчеты</a>
+    </div>
+    <!--  <div class="text3_about_build">-->
+    <!--    <a class="nav-link active" href="#">Назад</a>-->
+    <!--  </div>-->
+    <form th:action="@{/logout}" method="post">
+        <input class="text3_about_build" type="submit" value="Выход"/>
+    </form>
+</div>
+
+<div class="text_bathroom1">
+    <span> Мои расчеты</span>
+</div>
+<div class="text_bathroom2">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation">Назад</a>
+</div>
+<!--МОЙ ПРОФИЛЬ-->
+
+<!--<div align="center" class="profile">-->
+<!--    <div class="profile-main">-->
+<!--        <h2>Мой профиль</h2>-->
+<!--    </div>-->
+<!--    <form action="save" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}" th:method="get">-->
+<!--        <table class="table-profile">-->
+<!--            <tr class="form1">-->
+<!--                <td><label for="name">Имя: </label></td>-->
+<!--                <td><input type="text" th:field="*{firstName}" id="name"/></td>-->
+<!--            </tr>-->
+<!--            <tr class="form2">-->
+<!--                <td><label for="lastName">Фамилия: </label></td>-->
+<!--                <td><input type="text" th:field="*{lastName}" id="lastName"/></td>-->
+<!--            </tr>-->
+<!--            <tr class="form3">-->
+<!--                <td><label for="email">Почта: </label></td>-->
+<!--                <td><input type="text" th:field="*{email}" id="email"/></td>-->
+<!--            </tr>-->
+<!--            <tr class="form4">-->
+<!--                <td><label for="phoneNumber">Номер телефона: </label></td>-->
+<!--                <td><input type="text" th:field="*{phoneNumber}" id="phoneNumber"/></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </form>-->
+
+
+<!--</div>-->
+<!--НИЖНЯЯ ПАНЕЛЬ-->
+<div class="navbarlow">
+</div>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{default}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Профиль пользователя</title>
+  <script type="text/javascript" src="/webjars/jquery/3.6.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"
+  />
+  <script type="text/javascript" src="/webjars/bootstrap-datepicker/4.3.1/js/bootstrap.min.js"></script>
+  <meta charset="ISO-8859-1">
+  <style>
+    /*ВЕРХНИЙ НАВБАР*/
+    .navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 30px 130px 30px 464px;
+      gap: 10px;
+
+      position: absolute;
+      width: 1487px;
+      height: 79px;
+      left: 1px;
+      top: 0px;
+      background: #34607F;
+    }
+    .bg-dark{
+      background-color:#34607F!important
+    }
+    .bg-primary{
+      background-color:#34607F!important
+    }
+    .nav-link , .navbar-brand {
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+    .navbar-toggler{
+      background:#fff !important;
+    }
+    .nav-item1 {
+      width: 130px;
+    }
+    .nav-item2 {
+      width: 130px;
+    }
+    .nav-item3 {
+      width: 130px;
+    }
+    .nav-item4 {
+      width: 330px;
+    }
+
+    /*БОКОВАЯ ПАНЕЛЛЬ*/
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+      width: 400px;
+      height: 1024px;
+      left: 0px;
+      top: 0px;
+      position: fixed;
+      z-index: 1;
+      background: #FFFFFF;
+      border: 2px solid #000000;
+    }
+    .authentication {
+      left: 40px;
+      top: 40px;
+    }
+    .text1_about_build {
+      position: absolute;
+      width: 140px;
+      height: 40px;
+      left: 120px;
+      top: 190px;
+      background: #34607F
+    }
+    .text1_about_build .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 105.4%;
+      /* identical to box height, or 27px */
+      margin: 1px auto 50px auto;
+      padding: 8px 15px 12px 30px;
+      letter-spacing: 0.005em;
+      color: #FFFFFF;
+    }
+    .text2_about_build {
+      position: absolute;
+      width: 140px;
+      height: 40px;
+      left: 120px;
+      top: 278px;
+      background: #34607F
+    }
+    .text2_about_build .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 105.4%;
+      /* identical to box height, or 27px */
+      margin: 1px auto 50px auto;
+      padding: 8px 15px 19px 27px;
+      letter-spacing: 0.005em;
+      color: #FFFFFF;
+    }
+    .text3_about_build {
+      position: absolute;
+      width: 140px;
+      height: 40px;
+      left: 120px;
+      top: 558px;
+      background: #34607F
+    }
+    .text3_about_build .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 105.4%;
+      /* identical to box height, or 27px */
+      margin: 1px auto 50px auto;
+      padding: 8px 15px 12px 40px;
+      letter-spacing: 0.005em;
+      color: #FFFFFF;
+    }
+    /*МОИ РАССЧЕТЫ*/
+
+    /*МОИ РАСЧЕТЫ текст*/
+    .text1 {
+      position: absolute;
+      width: 263px;
+      height: 29px;
+      left: 529px;
+      top: 109px;
+
+    }
+    .text1 span {
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 34px;
+      line-height: 67.4%;
+      /* or 56px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*СТРОЙКА*/
+    .text2 {
+      position: absolute;
+      width: 100px;
+      height: 39px;
+      left: 529px;
+      top: 158px;
+    }
+    .text2 span {
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 67.4%;
+      /* or 56px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*КВАРТИРА*/
+    .text3 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 529px;
+      top: 190px;
+      background: #FFFFFF;
+      margin: 5px auto 50px auto;
+      padding: -1px 2px 18px 18px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 9px;
+    }
+    .text3 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*КОМНАТА*/
+    .text4 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 529px;
+      top: 250px;
+      background: #FFFFFF;
+      margin: 5px auto 50px auto;
+      padding: -1px 2px 18px 18px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 9px;
+    }
+    .text4 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*КОРИДОР*/
+    .text6 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 689px;
+      top: 190px;
+      background: #FFFFFF;
+      margin: 5px auto 50px auto;
+      padding: -4px 18px 19px 18px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 9px;
+    }
+    .text6 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*КУХНЯ*/
+    .text7 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 689px;
+      top: 250px;
+      background: #FFFFFF;
+      margin: 5px auto 50px auto;
+      padding: 1px 6px 10px 9px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 9px;
+    }
+    .text7 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*ВАННАЯ*/
+    .text8 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 849px;
+      top: 190px;
+      background: #FFFFFF;
+      margin: 5px auto 50px auto;
+      padding: 1px 6px 10px 9px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 9px;
+    }
+    .text8 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*НОВОСТРОЙ*/
+    .text9 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 849px;
+      top: 250px;
+      background: #FFFFFF;
+      margin: 5px auto 50px auto;
+      padding: -1px 9px 32px 16px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 9px;
+    }
+    .text9 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+    /*НАЗАД*/
+    .text19 {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 110px;
+      height: 40px;
+      left: 1249px;
+      top: 490px;
+      margin: 5px auto 50px auto;
+      padding: 1px 2px 18px 15px;
+      letter-spacing: 0.005em;
+      border: 1px solid #000000;
+      border-radius: 3px;
+      background-color: #34607F;
+    }
+    .text19 .nav-link{
+      font-family: 'Montserrat',serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 123.4%;
+      /* or 27px */
+
+      letter-spacing: 0.005em;
+
+      color: black;
+    }
+
+    /*НИЖНЯЯ ПАНЕЛЬ*/
+    body {margin:0;}
+    .navbarlow {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 51px 78px;
+      gap: 10px;
+
+      position: absolute;
+      width: 1487px;
+      height: 150px;
+      left: 2px;
+      top: 603px;
+
+      background: #34607F;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    .navbar a:hover {
+      background: #f1f1f1;
+      color: black;
+    }
+
+  </style>
+
+</head>
+<body>
+<!--ВЕРХНЯЯ ПАНЕЛЬ-->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item1">
+          <a class="nav-link active" aria-current="page" sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_USER')"th:href="@{#}">Главная</a>
+        </li>
+        <li class="nav-item2">
+          <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/building">Стройка</a>
+        </li>
+        <li class="nav-item3">
+          <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/renovation">Ремонт</a>
+        </li>
+        <li class="nav-item4">
+          <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="#">Контакты</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--<div class="authenticated" sec:autorize="isAuthenticated()">-->
+<!--  <h3>Welcome</h3> <b> <span sec:authentication="name">Username</span></b>-->
+<!--  <i><span sec:authentication="principal.authorities"><h3>Roles</h3></span></i>-->
+<!--</div>-->
+<!--БОКОВАЯ ПАНЕЛЬ-->
+
+
+<div class="sidenav">
+  <div class="authentication" layout:fragment="content">
+    <h6 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h6>
+  </div>
+  <div class="text1_about_build">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/dashboard">Профиль</a>
+  </div>
+  <div class="text2_about_build">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="#">Расчеты</a>
+  </div>
+  <!--  <div class="text3_about_build">-->
+  <!--    <a class="nav-link active" href="#">Назад</a>-->
+  <!--  </div>-->
+  <form th:action="@{/logout}" method="post">
+    <input class="text3_about_build" type="submit" value="Выход"/>
+  </form>
+</div>
+
+<!--МОИ РАСЧЕТЫ-->
+<div>
+  <div class="text1">
+    <span>Рассчитать</span>
+  </div>
+  <div class="text2">
+    <span>Ремонт</span>
+  </div>
+  <div class="text3">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/house">Квартира</a>
+  </div>
+  <div class="text4">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/bathroom">Комната</a>
+  </div>
+  <div class="text6">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/garage">Коридоры</a>
+  </div>
+  <div class="text7">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/warehouse">Кухня</a>
+  </div>
+  <div class="text8">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/fence">Ванная</a>
+  </div>
+  <div class="text9">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/calculation/foundation">Новострой</a>
+  </div>
+
+  <div class="text19">
+    <a sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')" class="nav-link active" href="/dashboard">Назад</a>
+  </div>
+
+
+
+</div>
+<!--НИЖНЯЯ ПАНЕЛЬ-->
+<div class="navbarlow">
+</div>
+</body>
+</html>
