@@ -1,5 +1,6 @@
 package com.calculator.calculatorforhome.domain.buildmodel;
 
+import com.calculator.calculatorforhome.domain.entityhouse.House;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
